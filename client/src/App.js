@@ -20,7 +20,7 @@ class App extends Component {
     });
   }
   componentDidMount() {
-    this.interval = setInterval(() => this.fetchHelper(), 100);
+    this.interval = setInterval(() => this.fetchHelper(), 250);
   }
 
   componentWillUnmount() {
