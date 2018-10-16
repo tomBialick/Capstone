@@ -8,16 +8,14 @@ class App extends Component {
     this.state = {
       x: 0,
       y: 0,
-      z: 0,
-      i: 0,
-      j: -1
+      z: 0
     };
   }
 
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       this.setState({x: responseJson.body.x, y: responseJson.body.y, z: responseJson.body.z});
-      //console.log(responseJson);
+      console.log(responseJson);
     });
   }
   componentDidMount() {
