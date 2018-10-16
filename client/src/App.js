@@ -14,9 +14,9 @@ class App extends Component {
 
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
-      //var data = JSON.parse(responseJson);
-      //this.setState({x: data.body.x, y: data.body.y, z: data.body.z});
-      console.log(responseJson);
+      var data = responseJson;
+      this.setState({x: data.body.x, y: data.body.y, z: data.body.z});
+      //console.log(responseJson);
     });
   }
   componentDidMount() {
