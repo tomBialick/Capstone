@@ -6,7 +6,7 @@ var Y = 0;
 var Z = 0;
 
 router.get('/', (req, res, next) => {
-  res.send({body: {x: X, y: Y, z: Z}})
+  res.send(JSON.stringify({body: {x: X, y: Y, z: Z}}))
 })
 
 /*

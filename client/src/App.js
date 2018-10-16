@@ -13,13 +13,10 @@ class App extends Component {
     }
 
   componentDidMount() {
-    fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then(function(response) {
-      return response.json();
-    }).then(function(jsonData) {
-      return JSON.stringify(jsonData);
-    }).then(function(jsonStr) {
-      this.setState({x: jsonStr.body.x, y: jsonStr.body.y, z: jsonStr.body.z});
-      console.log(jsonStr);
+    fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({x: responseJson.body.x, y: responseJson.body.y, z: responseJson.body.z});
+      //console.log(responseJson);
     });
   }
   render() {
