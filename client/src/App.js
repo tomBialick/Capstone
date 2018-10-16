@@ -28,9 +28,13 @@ class App extends Component {
   }
 
   render() {
-    return (<h1>X: {this.state.x}</h1>
-    <h1>Y: {this.state.y}</h1>
-    <h1>Z: {this.state.z}</h1>);
+    return (
+      <div>
+        <h1>X: {this.state.x}</h1>
+        <h1>Y: {this.state.y}</h1>
+        <h1>Z: {this.state.z}</h1>
+      </div>
+    );
     /*
       <div className="App">
         <header className="App-header">
