@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+var context = new AudioContext(),
+  oscillator;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +33,13 @@ class App extends Component {
     clearInterval(this.interval);
   }
 
+  playSound() {
+    oscillator = context.createOscillator();
+    oscillator.frequency.setTargetAtTime(this.state.tx, context.currentTime, 0.01);
+    oscillator.connect(context.destination);
+    oscillator.start(context.currentTime);
+  }
+
   render() {
     return (
       <div>
@@ -39,6 +49,7 @@ class App extends Component {
         <h1>Tx: {this.state.tx}</h1>
         <h1>Ty: {this.state.ty}</h1>
         <h1>Tz: {this.state.tz}</h1>
+        {this.playSound()}
       </div>
     );
     /*
