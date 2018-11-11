@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 var context = new AudioContext(),
-  oscillator;
+    gainNode = context.createGain(),
+    oscillator = null;
 
 class App extends Component {
   constructor(props) {
@@ -16,12 +17,14 @@ class App extends Component {
       ty: 0,
       tz: 0
     };
+    this.playSound();
   }
 
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
       this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz});
+      oscillator.frequency.setTargetAtTime(data.body.tx, context.currentTime , 0.001);
       //console.log(responseJson);
     });
   }
@@ -49,7 +52,6 @@ class App extends Component {
         <h1>Tx: {this.state.tx}</h1>
         <h1>Ty: {this.state.ty}</h1>
         <h1>Tz: {this.state.tz}</h1>
-        {this.playSound()}
       </div>
     );
     /*
