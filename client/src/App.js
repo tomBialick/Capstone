@@ -24,7 +24,7 @@ class App extends Component {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
       this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz});
-      oscillator.frequency.setTargetAtTime((data.body.tx * 10), context.currentTime , 0.001);
+      oscillator.frequency.setTargetAtTime(((data.body.ty + data.body.gx + data.body.gy + data.body.gz) * 10), context.currentTime , 0.001);
       //console.log(responseJson);
     });
   }
@@ -38,7 +38,7 @@ class App extends Component {
 
   playSound() {
     oscillator = context.createOscillator();
-    oscillator.frequency.setTargetAtTime((this.state.tx * 10), context.currentTime, 0.01);
+    oscillator.frequency.setTargetAtTime(((this.state.tx + this.state.gx + this.state.gy + this.state.gz) * 10), context.currentTime, 0.01);
     oscillator.connect(context.destination);
     oscillator.start(context.currentTime);
   }
