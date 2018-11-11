@@ -6,16 +6,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      x: 0,
-      y: 0,
-      z: 0
+      gx: 0,
+      gy: 0,
+      gz: 0,
+      tx: 0,
+      ty: 0,
+      tz: 0
     };
   }
 
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
-      this.setState({x: data.body.x, y: data.body.y, z: data.body.z});
+      this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz});
       //console.log(responseJson);
     });
   }
@@ -30,9 +33,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>X: {this.state.x}</h1>
-        <h1>Y: {this.state.y}</h1>
-        <h1>Z: {this.state.z}</h1>
+        <h1>gX: {this.state.gx}</h1>
+        <h1>gY: {this.state.gy}</h1>
+        <h1>gZ: {this.state.gz}</h1>
+        <h1>tX: {this.state.tx}</h1>
+        <h1>tY: {this.state.ty}</h1>
+        <h1>tZ: {this.state.tz}</h1>
       </div>
     );
     /*
