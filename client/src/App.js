@@ -15,7 +15,8 @@ class App extends Component {
       gz: 0,
       tx: 0,
       ty: 0,
-      tz: 0
+      tz: 0,
+      wave: "sine"
     };
     this.playSound();
   }
@@ -25,6 +26,7 @@ class App extends Component {
       var data = responseJson;
       this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz});
       oscillator.frequency.setTargetAtTime(((data.body.ty) * 10), context.currentTime , 0.001);
+      oscillator.type = data.body.wave;
       //console.log(responseJson);
     });
   }
@@ -38,6 +40,7 @@ class App extends Component {
 
   playSound() {
     oscillator = context.createOscillator();
+    oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
     oscillator.connect(context.destination);
     oscillator.start(context.currentTime);
