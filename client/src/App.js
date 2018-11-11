@@ -38,7 +38,7 @@ class App extends Component {
 
   playSound() {
     oscillator = context.createOscillator();
-    oscillator.frequency.setTargetAtTime(this.state.tx, context.currentTime, 0.01);
+    oscillator.frequency.setTargetAtTime((this.state.tx + this.state.gx + this.state.gy + this.state.gz), context.currentTime, 0.01);
     oscillator.connect(context.destination);
     oscillator.start(context.currentTime);
   }
