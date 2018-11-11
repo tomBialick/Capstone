@@ -33,15 +33,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>gX: {this.state.gx}</h1>
+        <h1>Gx: {this.state.gx}</h1>
+        <h1>Gy: {this.state.gy}</h1>
+        <h1>Gz: {this.state.gz}</h1>
+        <h1>Tx: {this.state.tx}</h1>
+        <h1>Ty: {this.state.ty}</h1>
+        <h1>Tz: {this.state.tz}</h1>
       </div>
     );
     /*
-    <h1>gY: {this.state.gy}</h1>
-    <h1>gZ: {this.state.gz}</h1>
-    <h1>tX: {this.state.tx}</h1>
-    <h1>tY: {this.state.ty}</h1>
-    <h1>tZ: {this.state.tz}</h1>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
