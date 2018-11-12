@@ -10,13 +10,15 @@ gainNode.connect(context.destination);
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var analyser = audioCtx.createAnalyser();
-source = audioCtx.createMediaStreamSource(stream);
+var source = audioCtx.createMediaStreamSource(stream);
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Float32Array(bufferLength);
 analyser.getFloatFrequencyData(dataArray);
+canvas = window
+var canvasCtx = canvas.getContext("2d");
 var WIDTH = canvas.width;
 var HEIGHT = canvas.height;
 canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -69,7 +71,7 @@ class App extends Component {
   }
 
   draw() {
-    var drawVisual = requestAnimationFrame(draw);
+    var drawVisual = requestAnimationFrame(this.draw());
     analyser.getByteTimeDomainData(dataArray);
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
