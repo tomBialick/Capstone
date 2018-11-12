@@ -27,9 +27,9 @@ class App extends Component {
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
-      this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz, altitude: data.body.height, wave: data.body.wave});
-      oscillator.frequency.setTargetAtTime(((data.body.ty) * 10), context.currentTime , 0.001);
-      gainNode.gain.setTargetAtTime(this.calculateGain(data.body.height), context.currentTime, 0.001);
+      this.setState({gx: parseFloat(data.body.gx), gy: parseFloat(data.body.gy), gz: parseFloat(data.body.gz), tx: parseFloat(data.body.tx), ty: parseFloat(data.body.ty), tz: parseFloat(data.body.tz), altitude: parseFloat(data.body.height), wave: data.body.wave});
+      oscillator.frequency.setTargetAtTime(((parseFloat(data.body.ty)) * 10), context.currentTime , 0.001);
+      gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
       //console.log(responseJson);
     });
@@ -43,14 +43,14 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    return 1 - ((height / 1) * 1) + 0;
+    return 1 - ((parseFloat(height) / 1) * 2) + 0;
   }
 
   playSound() {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
-    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.001);
+    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
   }
