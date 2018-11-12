@@ -103,7 +103,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.draw();}
+        {this.draw()}
       </div>
     );
   }
