@@ -71,7 +71,7 @@ class App extends Component {
     analyserNode.getFloatFrequencyData(dataArray)
   }
 
-  function draw() {
+  draw() {
     //Schedule next redraw
     requestAnimationFrame(draw);
 
