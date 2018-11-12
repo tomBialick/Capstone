@@ -118,7 +118,7 @@ style={{width:'100%',height:'100%'}}
         <h2>Tx: {this.state.tx}</h2>
         <h2>Ty: {this.state.ty}</h2>
         <h2>Tz: {this.state.tz}</h2>
-        <h2>Al: {this.state.altitude}</h1>
+        <h2>Al: {this.state.altitude}</h2>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%'}}>
         </canvas>
       </div>
