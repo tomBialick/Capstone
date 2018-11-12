@@ -39,6 +39,8 @@ router.post('/', (req, res, next) => {
   }
   if (req.body.phone === "1"){
     altitude = req.body.altitude
+    //Altimeter is garbage for this
+    //altitude =
   }
 
 

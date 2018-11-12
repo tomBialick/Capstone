@@ -86,21 +86,7 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    if (height < 0) {
-      height *= -1
-    }
-    var value = ((parseFloat(height).toFixed(6) / 1) * 10) + 0
-    if (value >= 2) {
-      value = 2
-    }
-    while(value < .1) {
-      value *= 10
-    }
-    if (value < .5) {
-      value *= 2
-    }
-    return value
-    //return ((parseFloat(height).toFixed(5) * 20000) % 20000)
+    return ((parseFloat(height).toFixed(6) / 1) * 10) + 0
   }
 
   playSound() {
@@ -120,11 +106,20 @@ class App extends Component {
 <h1>Ty: {this.state.ty}</h1>
 <h1>Tz: {this.state.tz}</h1>
 <h1>Al: {this.state.altitude}</h1>
+style={{width:'100%',height:'100%'}}
+,height:'100%'
 */
   render() {
     return (
-      <div style={{width:'100%',height:'100%'}}>
-        <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
+      <div>
+        <h2>Gx: {this.state.gx}</h1>
+        <h2>Gy: {this.state.gy}</h1>
+        <h2>Gz: {this.state.gz}</h1>
+        <h2>Tx: {this.state.tx}</h1>
+        <h2>Ty: {this.state.ty}</h1>
+        <h2>Tz: {this.state.tz}</h1>
+        <h2>Al: {this.state.altitude}</h1>
+        <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%'}}>
         </canvas>
       </div>
     );
