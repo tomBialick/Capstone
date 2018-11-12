@@ -92,7 +92,7 @@ class App extends Component {
   playSound() {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
-    oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
+    oscillator.frequency.setTargetAtTime(((this.state.tx) * 15), context.currentTime, 0.01);
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
@@ -118,7 +118,7 @@ style={{width:'100%',height:'100%'}}
         <h2>Tx: {this.state.tx}</h2>
         <h2>Ty: {this.state.ty}</h2>
         <h2>Tz: {this.state.tz}</h2>
-        <h2>Al: {this.state.altitude}</h2>
+        <h2>Al: {(this.state.altitude * 15)}</h2>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%'}}>
         </canvas>
       </div>
