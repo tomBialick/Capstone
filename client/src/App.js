@@ -19,8 +19,7 @@ canvas.height = window.innerHeight;
 document.body.appendChild(canvas);
 const canvasCtx = canvas.getContext('2d');
 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-dataArray = new Float32Array(analyserNode.frequencyBinCount)
-analyserNode.getFloatFrequencyData(dataArray)
+
 
 class App extends Component {
   constructor(props) {
@@ -45,6 +44,8 @@ class App extends Component {
       oscillator.frequency.setTargetAtTime(((parseFloat(data.body.ty)) * 10), context.currentTime , 0.001);
       gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
+      dataArray = new Float32Array(analyserNode.frequencyBinCount)
+      analyserNode.getFloatFrequencyData(dataArray)
       dataArray = new Float32Array(analyserNode.frequencyBinCount)
       analyserNode.getFloatFrequencyData(dataArray)
       requestAnimationFrame(this.draw.bind(this));
