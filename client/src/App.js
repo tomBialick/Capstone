@@ -17,7 +17,7 @@ class App extends Component {
       ty: 0,
       tz: 0,
       wave: "sine",
-      altitude: 0
+      altitude: 1
     };
     this.playSound();
   }
