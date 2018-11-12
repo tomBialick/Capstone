@@ -80,8 +80,8 @@ class App extends Component {
   }
 
   visualize() {
-    WIDTH = canvas.width;
-    HEIGHT = canvas.height;
+    var WIDTH = canvas.width;
+    var HEIGHT = canvas.height;
 
     analyser.fftSize = 2048;
     var bufferLength = analyser.fftSize;
