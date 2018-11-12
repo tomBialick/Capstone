@@ -86,7 +86,7 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    return 1//((parseFloat(height).toFixed(6) / 1) * 10) + 0
+    return ((height/100) * 1) + 0
   }
 
   playSound() {
@@ -118,7 +118,7 @@ style={{width:'100%',height:'100%'}}
         <h2>Tx: {this.state.tx}</h2>
         <h2>Ty: {this.state.ty}</h2>
         <h2>Tz: {this.state.tz}</h2>
-        <h2>Al: {(this.state.altitude * 15)}</h2>
+        <h2>Al: {this.state.altitude}</h2>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%'}}>
         </canvas>
       </div>
