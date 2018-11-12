@@ -109,8 +109,8 @@ class App extends Component {
 */
   render() {
     return (
-      <div>
-        <canvas ref="analyzerCanvas" id="analyzer">
+      <div style="width:100%;height:100%">
+        <canvas ref="analyzerCanvas" id="analyzer" style="width:100%;height:100%">
         </canvas>
       </div>
     );
