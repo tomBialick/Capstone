@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
     waveform = req.body.wave
   }
   if (req.body.phone === "1"){
-    altitude = req.body.altitude
+    altitude = req.body.ty
     //Altimeter is garbage for this
     //altitude =
   }
