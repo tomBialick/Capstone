@@ -69,11 +69,12 @@ class App extends Component {
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
+    requestAnimationFrame(this.draw());
   }
 
   draw() {
     //Schedule next redraw
-    requestAnimationFrame(this.draw());
+
 
     //Get spectrum data
     analyserNode.getFloatFrequencyData(dataArray);
