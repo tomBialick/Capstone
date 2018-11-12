@@ -86,8 +86,18 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    //return ((parseFloat(height) / 1) * 10) + 0;
-    return ((parseFloat(height).toFixed(5) * 20000) % 20000) 
+    var value = ((parseFloat(height).toFixed(6) / 1) * 10) + 0
+    if (value >= 2) {
+      value = 2
+    }
+    while(value < .1) {
+      value *= 10
+    }
+    if (value < .5) {
+      value *= 2
+    }
+    return value
+    //return ((parseFloat(height).toFixed(5) * 20000) % 20000)
   }
 
   playSound() {
