@@ -16,7 +16,8 @@ class App extends Component {
       tx: 0,
       ty: 0,
       tz: 0,
-      wave: "sine"
+      wave: "sine",
+      altitude: 0
     };
     this.playSound();
   }
@@ -24,8 +25,9 @@ class App extends Component {
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
-      this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz});
+      this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz, altitude: data.body.height, wave: data.body.wave});
       oscillator.frequency.setTargetAtTime(((data.body.ty) * 10), context.currentTime , 0.001);
+      gainNode.gain.setTargetAtTime(calculateGain(data.body.height), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
       //console.log(responseJson);
     });
@@ -38,10 +40,15 @@ class App extends Component {
     clearInterval(this.interval);
   }
 
+  calculateGain(height) {
+    return 1 - ((height / 1) * 1) + 0;
+  }
+
   playSound() {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
+    gainNode.gain.setTargetAtTime(calculateGain(this.state.altitude), context.currentTime, 0.001);
     oscillator.connect(context.destination);
     oscillator.start(context.currentTime);
   }
@@ -55,26 +62,9 @@ class App extends Component {
         <h1>Tx: {this.state.tx}</h1>
         <h1>Ty: {this.state.ty}</h1>
         <h1>Tz: {this.state.tz}</h1>
+        <h1>Al: {this.state.altitude}</h1>
       </div>
     );
-    /*
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );*/
   }
 }
 

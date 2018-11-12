@@ -8,9 +8,11 @@ var tX = 0;
 var tY = 0;
 var tZ = 0;
 var waveform = "sine"
+phoneNum = 0
+altitude = 0
 
 router.get('/', (req, res, next) => {
-  res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform}})
+  res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude}})
 })
 
 /*
@@ -26,13 +28,19 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 
-  gX = req.body.gx
-  gY = req.body.gy
-  gZ = req.body.gz
-  tX = req.body.tx
-  tY = req.body.ty
-  tZ = req.body.tz
-  waveform = req.body.wave
+  if (req.body.phone === "0"){
+    gX = req.body.gx
+    gY = req.body.gy
+    gZ = req.body.gz
+    tX = req.body.tx
+    tY = req.body.ty
+    tZ = req.body.tz
+    waveform = req.body.wave
+  }
+  if (req.body.phone === "1"){
+    altitude = req.body.altitude
+  }
+
 
   res.send("ok")
 
