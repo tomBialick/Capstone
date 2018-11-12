@@ -8,20 +8,17 @@ var context = new AudioContext(),
 
 gainNode.connect(context.destination);
 
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var analyser = audioCtx.createAnalyser();
-var source = audioCtx.createMediaStreamSource(new MediaStream(oscillator));
-source.connect(analyser);
-analyser.connect(audioCtx.destination);
-analyser.fftSize = 2048;
-var bufferLength = analyser.frequencyBinCount;
-var dataArray = new Float32Array(bufferLength);
-analyser.getFloatFrequencyData(dataArray);
-var canvas = window
-var canvasCtx = canvas.getContext("2d");
-var WIDTH = canvas.width;
-var HEIGHT = canvas.height;
-canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+var analyserNode = context.createAnalyser()
+var dataArray
+const canvas = document.createElement('canvas');
+canvas.style.position = 'absolute';
+canvas.style.top = 0;
+canvas.style.left = 0;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+document.body.appendChild(canvas);
+const canvasCtx = canvas.getContext('2d');
+canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
 class App extends Component {
   constructor(props) {
@@ -46,6 +43,8 @@ class App extends Component {
       oscillator.frequency.setTargetAtTime(((parseFloat(data.body.ty)) * 10), context.currentTime , 0.001);
       gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
+      dataArray = new Float32Array(analyserNode.frequencyBinCount)
+      analyserNode.getFloatFrequencyData(dataArray)
       //console.log(responseJson);
     });
   }
@@ -68,31 +67,32 @@ class App extends Component {
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
+    dataArray = new Float32Array(analyserNode.frequencyBinCount)
+    analyserNode.getFloatFrequencyData(dataArray)
   }
 
-  draw() {
-    var drawVisual = requestAnimationFrame(this.draw());
-    analyser.getByteTimeDomainData(dataArray);
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    var sliceWidth = WIDTH * 1.0 / bufferLength;
-    var x = 0;
-    for(var i = 0; i < bufferLength; i++) {
+  function draw() {
+    //Schedule next redraw
+    requestAnimationFrame(draw);
 
-        var v = dataArray[i] / 128.0;
-        var y = v * HEIGHT/2;
+    //Get spectrum data
+    analyserNode.getFloatFrequencyData(dataArray);
 
-        if(i === 0) {
-          canvasCtx.moveTo(x, y);
-        } else {
-          canvasCtx.lineTo(x, y);
-        }
+    //Draw black background
+    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-        x += sliceWidth;
+  //Draw spectrum
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let posX = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      const barHeight = (dataArray[i] + 140) * 2;
+      canvasCtx.fillStyle = 'rgb(' + Math.floor(barHeight + 100) + ', 50, 50)';
+      canvasCtx.fillRect(posX, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+      posX += barWidth + 1;
     }
-    canvasCtx.lineTo(canvas.width, canvas.height/2);
-    canvasCtx.stroke();
   }
+
 /*
 <h1>Gx: {this.state.gx}</h1>
 <h1>Gy: {this.state.gy}</h1>
