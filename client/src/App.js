@@ -107,7 +107,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.draw()}
+        {requestAnimationFrame(this.draw.bind(this))}
       </div>
     );
   }
