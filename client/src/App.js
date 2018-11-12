@@ -62,16 +62,6 @@ class App extends Component {
     return ((parseFloat(height) / 1) * 10) + 0;
   }
 
-  playSound() {
-    oscillator = context.createOscillator();
-    oscillator.type = this.state.wave;
-    oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
-    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
-    oscillator.connect(gainNode);
-    oscillator.start(context.currentTime);
-    requestAnimationFrame(this.draw());
-  }
-
   draw() {
     //Schedule next redraw
 
@@ -92,6 +82,16 @@ class App extends Component {
       canvasCtx.fillRect(posX, canvas.height - barHeight / 2, barWidth, barHeight / 2);
       posX += barWidth + 1;
     }
+  }
+
+  playSound() {
+    oscillator = context.createOscillator();
+    oscillator.type = this.state.wave;
+    oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
+    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
+    oscillator.connect(gainNode);
+    oscillator.start(context.currentTime);
+    requestAnimationFrame(this.draw.bind(this));
   }
 
 /*
