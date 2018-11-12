@@ -27,7 +27,7 @@ class App extends Component {
       var data = responseJson;
       this.setState({gx: data.body.gx, gy: data.body.gy, gz: data.body.gz, tx: data.body.tx, ty: data.body.ty, tz: data.body.tz, altitude: data.body.height, wave: data.body.wave});
       oscillator.frequency.setTargetAtTime(((data.body.ty) * 10), context.currentTime , 0.001);
-      gainNode.gain.setTargetAtTime(calculateGain(data.body.height), context.currentTime, 0.001);
+      gainNode.gain.setTargetAtTime(this.calculateGain(data.body.height), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
       //console.log(responseJson);
     });
@@ -48,7 +48,7 @@ class App extends Component {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
-    gainNode.gain.setTargetAtTime(calculateGain(this.state.altitude), context.currentTime, 0.001);
+    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.001);
     oscillator.connect(context.destination);
     oscillator.start(context.currentTime);
   }
