@@ -6,6 +6,8 @@ var context = new AudioContext(),
     gainNode = context.createGain(),
     oscillator = null;
 
+gainNode.connect(context.destination);
+
 class App extends Component {
   constructor(props) {
     super(props);
