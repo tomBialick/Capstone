@@ -40,8 +40,9 @@ class App extends Component {
   }
 
   createVisual() {
-    var analyserNode = context.createAnalyser()
-    let canvas = this.refs.analyserCanvas;
+    var analyser = context.createAnalyser()
+    let canvas = this.refs.analyzerCanvas;
+    let ctx = canvas.getContext('2d');
     function renderFrame(){
       let freqData = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
@@ -67,9 +68,6 @@ class App extends Component {
       oscillator.frequency.setTargetAtTime(((parseFloat(data.body.ty)) * 10), context.currentTime , 0.001);
       gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
-      dataArray = new Float32Array(analyserNode.frequencyBinCount)
-      analyserNode.getFloatFrequencyData(dataArray)
-      this.draw();
       //console.log(responseJson);
     });
   }
