@@ -6,7 +6,7 @@ var context = new AudioContext(),
     gainNode = context.createGain(),
     oscillator = null;
 
-gainNode.connect(context.destination);
+
 
 
 /*var dataArray
@@ -43,6 +43,11 @@ class App extends Component {
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
+
+    gainNode.connect(analyser);
+    gainNode.connect(context.destination);
+    analyser.connect(context.destination);
+
     function renderFrame(){
       let freqData = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
