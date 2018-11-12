@@ -10,14 +10,14 @@ gainNode.connect(context.destination);
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var analyser = audioCtx.createAnalyser();
-var source = audioCtx.createMediaStreamSource(stream);
+var source = audioCtx.createMediaStreamSource(oscillator);
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Float32Array(bufferLength);
 analyser.getFloatFrequencyData(dataArray);
-canvas = window
+var canvas = window
 var canvasCtx = canvas.getContext("2d");
 var WIDTH = canvas.width;
 var HEIGHT = canvas.height;
