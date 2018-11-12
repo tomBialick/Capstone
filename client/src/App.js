@@ -112,12 +112,12 @@ style={{width:'100%',height:'100%'}}
   render() {
     return (
       <div>
-        <h2>Gx: {this.state.gx}</h1>
-        <h2>Gy: {this.state.gy}</h1>
-        <h2>Gz: {this.state.gz}</h1>
-        <h2>Tx: {this.state.tx}</h1>
-        <h2>Ty: {this.state.ty}</h1>
-        <h2>Tz: {this.state.tz}</h1>
+        <h2>Gx: {this.state.gx}</h2>
+        <h2>Gy: {this.state.gy}</h2>
+        <h2>Gz: {this.state.gz}</h2>
+        <h2>Tx: {this.state.tx}</h2>
+        <h2>Ty: {this.state.ty}</h2>
+        <h2>Tz: {this.state.tz}</h2>
         <h2>Al: {this.state.altitude}</h1>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%'}}>
         </canvas>
