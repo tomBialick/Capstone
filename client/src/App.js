@@ -49,7 +49,7 @@ class App extends Component {
     oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.ty) * 10), context.currentTime, 0.01);
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.001);
-    oscillator.connect(context.destination);
+    oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
   }
 
