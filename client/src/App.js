@@ -8,8 +8,8 @@ var context = new AudioContext(),
 
 gainNode.connect(context.destination);
 
-var analyserNode = context.createAnalyser()
-var dataArray
+
+/*var dataArray
 const canvas = document.createElement('canvas');
 canvas.style.position = 'absolute';
 canvas.style.top = 0;
@@ -21,6 +21,7 @@ const canvasCtx = canvas.getContext('2d');
 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 dataArray = new Float32Array(analyserNode.frequencyBinCount)
 analyserNode.getFloatFrequencyData(dataArray)
+*/
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +39,27 @@ class App extends Component {
     this.playSound();
   }
 
+  createVisual() {
+    var analyserNode = context.createAnalyser()
+    let canvas = this.refs.analyserCanvas;
+    function renderFrame(){
+      let freqData = new Uint8Array(analyser.frequencyBinCount)
+      requestAnimationFrame(renderFrame)
+      analyser.getByteFrequencyData(freqData)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      console.log(freqData)
+      ctx.fillStyle = '#9933ff';
+      let bars = 100;
+      for (var i = 0; i < bars; i++) {
+        let bar_x = i * 3;
+        let bar_width = 2;
+        let bar_height = -(freqData[i] / 2);
+        ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
+      }
+    };
+    renderFrame()
+  }
+
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
@@ -53,6 +75,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.interval = setInterval(() => this.fetchHelper(), 100);
+    this.createVisual()
   }
 
   componentWillUnmount() {
@@ -63,28 +86,6 @@ class App extends Component {
     return ((parseFloat(height) / 1) * 10) + 0;
   }
 
-  draw() {
-    //Schedule next redraw
-    requestAnimationFrame(this.draw.bind(this))
-
-    //Get spectrum data
-    analyserNode.getFloatFrequencyData(dataArray);
-
-    //Draw black background
-    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
-  //Draw spectrum
-    const barWidth = (canvas.width / analyserNode.frequencyBinCount) * 2.5;
-    let posX = 0;
-    for (let i = 0; i < analyserNode.frequencyBinCount; i++) {
-      const barHeight = (dataArray[i] + 140) * 2;
-      canvasCtx.fillStyle = 'rgb(' + Math.floor(barHeight + 100) + ', 50, 50)';
-      canvasCtx.fillRect(posX, canvas.height - barHeight / 2, barWidth, barHeight / 2);
-      posX += barWidth + 1;
-    }
-  }
-
   playSound() {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
@@ -92,7 +93,6 @@ class App extends Component {
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
-    requestAnimationFrame(this.draw.bind(this));
   }
 
 /*
@@ -107,6 +107,8 @@ class App extends Component {
   render() {
     return (
       <div>
+        <canvas ref="analyzerCanvas" id="analyzer">
+        </canvas>
       </div>
     );
   }
