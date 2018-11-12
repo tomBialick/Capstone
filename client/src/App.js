@@ -47,6 +47,7 @@ class App extends Component {
       oscillator.type = data.body.wave;
       dataArray = new Float32Array(analyserNode.frequencyBinCount)
       analyserNode.getFloatFrequencyData(dataArray)
+      requestAnimationFrame(this.draw.bind(this));
       //console.log(responseJson);
     });
   }
