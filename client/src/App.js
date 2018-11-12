@@ -87,10 +87,9 @@ class App extends Component {
         }
 
         x += sliceWidth;
-      }
-      canvasCtx.lineTo(canvas.width, canvas.height/2);
-      canvasCtx.stroke();
-    };
+    }
+    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.stroke();
   }
 /*
 <h1>Gx: {this.state.gx}</h1>
