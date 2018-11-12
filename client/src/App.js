@@ -20,6 +20,7 @@ document.body.appendChild(canvas);
 const canvasCtx = canvas.getContext('2d');
 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 dataArray = new Float32Array(analyserNode.frequencyBinCount)
+analyserNode.getFloatFrequencyData(dataArray)
 
 class App extends Component {
   constructor(props) {
@@ -68,7 +69,6 @@ class App extends Component {
     gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
-    analyserNode.getFloatFrequencyData(dataArray)
   }
 
   draw() {
