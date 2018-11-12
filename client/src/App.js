@@ -10,7 +10,7 @@ gainNode.connect(context.destination);
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var analyser = audioCtx.createAnalyser();
-var source = audioCtx.createMediaStreamSource(MediaStream(oscillator));
+var source = audioCtx.createMediaStreamSource(new MediaStream(oscillator));
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 analyser.fftSize = 2048;
