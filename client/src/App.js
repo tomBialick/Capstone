@@ -86,6 +86,9 @@ class App extends Component {
   }
 
   calculateGain(height) {
+    if (height < 0) {
+      height *= -1
+    }
     var value = ((parseFloat(height).toFixed(6) / 1) * 10) + 0
     if (value >= 2) {
       value = 2
