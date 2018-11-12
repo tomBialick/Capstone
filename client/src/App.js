@@ -73,7 +73,7 @@ class App extends Component {
 
   draw() {
     //Schedule next redraw
-    requestAnimationFrame(draw);
+    requestAnimationFrame(this.draw());
 
     //Get spectrum data
     analyserNode.getFloatFrequencyData(dataArray);
@@ -83,9 +83,9 @@ class App extends Component {
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
   //Draw spectrum
-    const barWidth = (canvas.width / bufferLength) * 2.5;
+    const barWidth = (canvas.width / analyserNode.frequencyBinCount) * 2.5;
     let posX = 0;
-    for (let i = 0; i < bufferLength; i++) {
+    for (let i = 0; i < analyserNode.frequencyBinCount; i++) {
       const barHeight = (dataArray[i] + 140) * 2;
       canvasCtx.fillStyle = 'rgb(' + Math.floor(barHeight + 100) + ', 50, 50)';
       canvasCtx.fillRect(posX, canvas.height - barHeight / 2, barWidth, barHeight / 2);
