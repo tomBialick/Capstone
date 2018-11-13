@@ -46,6 +46,9 @@ class App extends Component {
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
 
+    var canvasColor = this.state.canvasVal
+    var fillColor = this.state.fillVal
+
     gainNode.connect(analyser);
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
@@ -55,12 +58,12 @@ class App extends Component {
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      if(this.state.canvasVal) {
-        ctx.fillStyle = this.state.canvasVal;
+      if(canvasColor) {
+        ctx.fillStyle = canvasColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
-      if(this.state.fillVal) {
-        ctx.fillStyle = this.state.fillVal;
+      if(fillColor) {
+        ctx.fillStyle = fillColor;
       }
       else {
         ctx.fillStyle = '#9933ff';
