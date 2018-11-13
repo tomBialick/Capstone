@@ -6,23 +6,6 @@ var context = new AudioContext(),
     gainNode = context.createGain(),
     oscillator = null;
 
-
-
-
-/*var dataArray
-const canvas = document.createElement('canvas');
-canvas.style.position = 'absolute';
-canvas.style.top = 0;
-canvas.style.left = 0;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-document.body.appendChild(canvas);
-const canvasCtx = canvas.getContext('2d');
-canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-dataArray = new Float32Array(analyserNode.frequencyBinCount)
-analyserNode.getFloatFrequencyData(dataArray)
-*/
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -34,13 +17,8 @@ class App extends Component {
       ty: 0,
       tz: 0,
       wave: "sine",
-      altitude: 1,
-      fillVal: '#9933ff',
-      canvasVal: '#ffffff'
+      altitude: 1
     };
-    this.handleCanvasChange = this.handleCanvasChange.bind(this);
-    this.handleFillChange = this.handleFillChange.bind(this);
-    this.createVisual = this.createVisual.bind(this);
     this.playSound();
   }
 
@@ -58,16 +36,7 @@ class App extends Component {
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      if(this.state.canvasVal) {
-        ctx.fillStyle = this.state.canvasVal;
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-      }
-      if(this.state.fillVal) {
-        ctx.fillStyle = this.state.fillVal;
-      }
-      else {
-        ctx.fillStyle = '#9933ff';
-      }
+      ctx.fillStyle = '#9933ff';
       let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
@@ -76,7 +45,7 @@ class App extends Component {
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }
     };
-    renderFrame.call(this)
+    renderFrame.()
   }
 
   fetchHelper() {
@@ -111,16 +80,6 @@ class App extends Component {
     oscillator.start(context.currentTime);
   }
 
-  handleCanvasChange(e) {
-    e.preventDefault();
-    this.setState({canvasVal: e.target.value});
-  }
-
-  handleFillChange(e) {
-    e.preventDefault();
-    this.setState({fillVal: e.target.value});
-  }
-
 /*
 <h1>Gx: {this.state.gx}</h1>
 <h1>Gy: {this.state.gy}</h1>
@@ -133,10 +92,6 @@ class App extends Component {
   render() {
     return (
       <div style={{width:'100%',height:'100%'}}>
-        <form>
-          <input type="text" name="canvasColor" placeholder="#ffffff" value={this.state.canvasVal} onChange={this.handleCanvasChange} style={{float:'left'}}/>
-          <input type="text" name="barColor" placeholder="#9933ff" value={this.state.fillVal} onChange={this.handleFillChange} style={{float:'left'}}/>
-        </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
       </div>
