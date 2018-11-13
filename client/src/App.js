@@ -53,7 +53,7 @@ class App extends Component {
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
 
-    function renderFrame(this){
+    function renderFrame(){
       let freqData = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
@@ -76,7 +76,7 @@ class App extends Component {
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }
     };
-    renderFrame(this)
+    renderFrame.call(this)
   }
 
   fetchHelper() {
