@@ -40,6 +40,7 @@ class App extends Component {
     };
     this.handleCanvasChange = this.handleCanvasChange.bind(this);
     this.handleFillChange = this.handleFillChange.bind(this);
+    this.createVisual = this.createVisual.bind(this);
     this.playSound();
   }
 
@@ -47,10 +48,6 @@ class App extends Component {
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
-
-    var canvasColor = this.state.canvasVal
-    var fillColor = this.state.fillVal
-    console.log(fillColor)
 
     gainNode.connect(analyser);
     gainNode.connect(context.destination);
@@ -61,12 +58,12 @@ class App extends Component {
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      if(canvasColor) {
-        ctx.fillStyle = canvasColor;
+      if(this.state.canvasVal) {
+        ctx.fillStyle = this.state.canvasVal;
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
-      if(fillColor) {
-        ctx.fillStyle = fillColor;
+      if(this.state.fillVal) {
+        ctx.fillStyle = this.state.fillVal;
       }
       else {
         ctx.fillStyle = '#9933ff';
