@@ -38,6 +38,8 @@ class App extends Component {
       fillVal: '#9933ff',
       canvasVal: '#ffffff'
     };
+    this.handleClick = this.handleCanvasChange.bind(this);
+    this.handleClick = this.handleFillChange.bind(this);
     this.playSound();
   }
 
@@ -134,8 +136,8 @@ class App extends Component {
     return (
       <div style={{width:'100%',height:'100%'}}>
         <form>
-          <input type="text" name="canvasColor" placeholder="#ffffff" onChange={this.handleCanvasChange} style={{float:'left'}}/>
-          <input type="text" name="barColor" placeholder="#9933ff" onChange={this.handleFillChange} style={{float:'left'}}/>
+          <input type="text" name="canvasColor" placeholder="#ffffff" onChange={(e) => this.handleCanvasChange(e)} style={{float:'left'}}/>
+          <input type="text" name="barColor" placeholder="#9933ff" onChange={(e) => this.handleFillChange(e)} style={{float:'left'}}/>
         </form>);
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
