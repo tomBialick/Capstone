@@ -55,9 +55,16 @@ class App extends Component {
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.fillStyle = this.state.canvasVal;
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.fillStyle = this.state.fillVal;
+      if(this.state.canvasVal) {
+        ctx.fillStyle = this.state.canvasVal;
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+      if(this.state.fillVal) {
+        ctx.fillStyle = this.state.fillVal;
+      }
+      else {
+        ctx.fillStyle = '#9933ff';
+      }
       let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
