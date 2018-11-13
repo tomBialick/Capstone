@@ -124,8 +124,8 @@ class App extends Component {
     return (
       <div style={{width:'100%',height:'100%'}}>
         <form>
-          <input type="text" name="canvasColor" placeholder="#ffffff" value={this.state.canvasVal} onChange={this.handleCanvasChange} style={{float:'left'}}/>
-          <input type="text" name="barColor" placeholder="#9933ff" value={this.state.fillVal} onChange={this.handleFillChange} style={{float:'left'}}/>
+          <input type="text" name="canvasColor" placeholder="#ffffff" onChange={this.handleCanvasChange} style={{float:'left'}}/>
+          <input type="text" name="barColor" placeholder="#9933ff" onChange={this.handleFillChange} style={{float:'left'}}/>
         </form>);
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
