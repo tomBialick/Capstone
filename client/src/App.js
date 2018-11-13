@@ -34,7 +34,9 @@ class App extends Component {
       ty: 0,
       tz: 0,
       wave: "sine",
-      altitude: 1
+      altitude: 1,
+      fillVal: '#9933ff',
+      canvasVal: '#ffffff'
     };
     this.playSound();
   }
@@ -53,8 +55,9 @@ class App extends Component {
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      console.log(freqData)
-      ctx.fillStyle = '#9933ff';
+      ctx.fillStyle = this.state.canvasVal;
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.fillStyle = this.state.fillVal;
       let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
@@ -98,6 +101,16 @@ class App extends Component {
     oscillator.start(context.currentTime);
   }
 
+  handleCanvasChange(e) {
+    e.preventDefault();
+    this.setState({canvasVal: e.target.value});
+  }
+
+  handleFillChange(e) {
+    e.preventDefault();
+    this.setState({fillVal: e.target.value});
+  }
+
 /*
 <h1>Gx: {this.state.gx}</h1>
 <h1>Gy: {this.state.gy}</h1>
@@ -110,6 +123,10 @@ class App extends Component {
   render() {
     return (
       <div style={{width:'100%',height:'100%'}}>
+        <form>
+          <input type="text" name="canvasColor" placeholder="#ffffff" value={this.state.canvasVal} onChange={this.handleCanvasChange} style={{float:'left'}}/>
+          <input type="text" name="barColor" placeholder="#9933ff" value={this.state.fillVal} onChange={this.handleFillChange} style={{float:'left'}}/>
+        </form>);
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
       </div>
