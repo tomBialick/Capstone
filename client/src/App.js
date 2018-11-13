@@ -38,8 +38,8 @@ class App extends Component {
       fillVal: '#9933ff',
       canvasVal: '#ffffff'
     };
-    this.handleClick = this.handleCanvasChange.bind(this);
-    this.handleClick = this.handleFillChange.bind(this);
+    this.handleCanvasChange = this.handleCanvasChange.bind(this);
+    this.handleFillChange = this.handleFillChange.bind(this);
     this.playSound();
   }
 
