@@ -50,6 +50,7 @@ class App extends Component {
 
     var canvasColor = this.state.canvasVal
     var fillColor = this.state.fillVal
+    console.log(fillColor)
 
     gainNode.connect(analyser);
     gainNode.connect(context.destination);
