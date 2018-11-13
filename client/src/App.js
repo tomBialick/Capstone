@@ -45,7 +45,7 @@ class App extends Component {
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }
     };
-    renderFrame.()
+    renderFrame()
   }
 
   fetchHelper() {
@@ -55,7 +55,6 @@ class App extends Component {
       oscillator.frequency.setTargetAtTime(((parseFloat(data.body.tx)) * 15), context.currentTime , 0.001);
       gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       oscillator.type = data.body.wave;
-      //console.log(responseJson);
     });
   }
   componentDidMount() {
