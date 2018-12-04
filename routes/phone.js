@@ -11,9 +11,10 @@ var waveform = "sine"
 var phoneNum = 0
 var altitude = 0
 var buttonHeld = "0"
+var metWav = "sine"
 
 router.get('/', (req, res, next) => {
-  res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude, held: buttonHeld}})
+  res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude, held: buttonHeld, metroWave: metWav}})
 })
 
 /*
@@ -41,6 +42,7 @@ router.post('/', (req, res, next) => {
   if (req.body.phone === "1"){
     altitude = req.body.ty
     buttonHeld = req.body.held
+    metWav = req.body.wave
     //Altimeter is garbage for this
   }
 
