@@ -109,7 +109,7 @@ class App extends Component {
     else {
       gainNode.gain.setTargetAtTime(this.calculateGain(0), context.currentTime, 0.01);
     }
-    oscillator.connect(convolver);
+    oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
   }
 
