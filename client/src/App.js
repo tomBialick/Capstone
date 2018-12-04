@@ -4,7 +4,7 @@ import './App.css';
 
 var context = new AudioContext(),
     Dilla = require('dilla'),
-    var dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2}),
+    dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2}),
     dillaGain = context.createGain(),
     dillaOsc = null,
     gainNode = context.createGain(),
