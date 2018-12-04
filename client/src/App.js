@@ -127,10 +127,10 @@ class App extends Component {
 
     var high = {
       'position': '*.1.01',
-      'freq': 440,
+      'freq': 220,
       'duration': 15
     };
-    var low = { 'freq': 330, 'duration': 15 };
+    var low = { 'freq': 110, 'duration': 15 };
 
     dilla.set('metronome', [
       high,
@@ -163,6 +163,7 @@ class App extends Component {
       dilla.start()
     }
     else {
+      dilla.clear()
       dilla.stop()
     }
     this.setState(state => ({
