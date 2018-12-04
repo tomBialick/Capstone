@@ -178,11 +178,16 @@ class App extends Component {
     }));
   }
   reverbDurChange(event) {
-    this.setState({dur: event.target.value})
-    convolver = context.createConvolver()
-    oscillator.connect(convolver);
-    convolver.buffer = this.impulseResponse(event.target.value, this.state.dec,false);
-    convolver.connect(gainNode)
+    if (event.target.value) {
+      oscillator.disconnect(convolver)
+      convolver.disconnect(gainNode)
+      convolver = null
+      this.setState({dur: event.target.value})
+      convolver = context.createConvolver()
+      oscillator.connect(convolver);
+      convolver.buffer = this.impulseResponse(event.target.value, this.state.dec,false);
+      convolver.connect(gainNode)
+    }
   }
   reverbDecChange(event) {
     this.setState({dec: event.target.value})
