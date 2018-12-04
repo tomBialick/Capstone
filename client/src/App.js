@@ -188,12 +188,14 @@ class App extends Component {
     }
   }
   reverbDecChange(event) {
-    convolver.disconnect(gainNode)
-    this.setState({dec: event.target.value})
-    convolver = context.createConvolver()
-    oscillator.connect(convolver);
-    convolver.buffer = this.impulseResponse(this.state.dur, event.target.value,false);
-    convolver.connect(gainNode)
+    if (event.target.value) {
+      convolver.disconnect(gainNode)
+      this.setState({dec: event.target.value})
+      convolver = context.createConvolver()
+      oscillator.connect(convolver);
+      convolver.buffer = this.impulseResponse(this.state.dur, event.target.value,false);
+      convolver.connect(gainNode)
+    }
   }
 
 /*
@@ -211,10 +213,10 @@ class App extends Component {
         <button onClick={this.toggleMetro}>Toggle Metronome</button>
         <form>
           <label>Reverb Duration:
-            <input type="number" value={this.state.dur} step=".1" onChange={this.reverbDurChange}/>
+            <input type="number" value={this.state.dur} step=".1" min=".1" onChange={this.reverbDurChange}/>
           </label>
           <label>Reverb Decay:
-            <input type="number" value={this.state.dec} step=".1" onChange={this.reverbDecChange}/>
+            <input type="number" value={this.state.dec} step=".1" min=".1" onChange={this.reverbDecChange}/>
           </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
