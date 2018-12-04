@@ -179,7 +179,6 @@ class App extends Component {
   }
   reverbDurChange(event) {
     if (event.target.value) {
-      //oscillator.disconnect(convolver)
       convolver.disconnect(gainNode)
       this.setState({dur: event.target.value})
       convolver = context.createConvolver()
@@ -189,8 +188,12 @@ class App extends Component {
     }
   }
   reverbDecChange(event) {
+    convolver.disconnect(gainNode)
     this.setState({dec: event.target.value})
+    convolver = context.createConvolver()
+    oscillator.connect(convolver);
     convolver.buffer = this.impulseResponse(this.state.dur, event.target.value,false);
+    convolver.connect(gainNode)
   }
 
 /*
@@ -201,10 +204,6 @@ class App extends Component {
 <h1>Ty: {this.state.ty}</h1>
 <h1>Tz: {this.state.tz}</h1>
 <h1>Al: {this.state.altitude}</h1>
-
-<label>Reverb Decay:
-  <input type="number" value={this.state.dec} step=".1" onChange={this.reverbDecChange}/>
-</label>
 */
   render() {
     return (
@@ -213,6 +212,9 @@ class App extends Component {
         <form>
           <label>Reverb Duration:
             <input type="number" value={this.state.dur} step=".1" onChange={this.reverbDurChange}/>
+          </label>
+          <label>Reverb Decay:
+            <input type="number" value={this.state.dec} step=".1" onChange={this.reverbDecChange}/>
           </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
