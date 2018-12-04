@@ -45,9 +45,8 @@ class App extends Component {
     //angle is +/- 90
     //midi is 0 to 127
     angle += 90
-    var midiNote = Math.floor((angle/1.4));
+    var midiNote = Math.floor((angle/1.875));
     var result = 27.5 * Math.pow(2, ((midiNote - 21) / 12));
-    console.log(result)
     return result
   }
 
