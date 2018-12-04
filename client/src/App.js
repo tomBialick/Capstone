@@ -29,13 +29,13 @@ class App extends Component {
       play: 0,
       isToggleOn: false,
       dur: .4,
-      dec: 2,
-      metroReverbCheck: false
+      dec: 2//,
+      //metroReverbCheck: false
     };
     this.toggleMetro = this.toggleMetro.bind(this)
     this.reverbDurChange = this.reverbDurChange.bind(this)
     this.reverbDecChange = this.reverbDecChange.bind(this)
-    this.metroReverbChange = this.metroReverbChange.bind(this)
+    //this.metroReverbChange = this.metroReverbChange.bind(this)
     this.playSound();
   }
 
