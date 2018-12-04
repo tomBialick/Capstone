@@ -174,7 +174,7 @@ class App extends Component {
       dilla.start()
     }
     else {
-      dilla.clear()
+      //dilla.clear()
       dilla.stop()
     }
     this.setState(state => ({
