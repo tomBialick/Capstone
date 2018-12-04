@@ -25,9 +25,9 @@ class App extends Component {
   }
 
   impulseResponse( duration, decay, reverse ) {
-      var sampleRate = audioContext.sampleRate;
+      var sampleRate = context.sampleRate;
       var length = sampleRate * duration;
-      var impulse = audioContext.createBuffer(2, length, sampleRate);
+      var impulse = context.createBuffer(2, length, sampleRate);
       var impulseL = impulse.getChannelData(0);
       var impulseR = impulse.getChannelData(1);
 
@@ -43,7 +43,7 @@ class App extends Component {
 
   createVisual() {
     convolver.connect(gainNode)
-    convolver.buffer = impulseResponse(4,4,false);
+    convolver.buffer = this.impulseResponse(4,4,false);
 
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
