@@ -10,7 +10,7 @@ var context = new AudioContext(),
     gainNode = context.createGain(),
     oscillator = null,
     convolver = context.createConvolver(),
-    analyser = context.createAnalyser(),
+    analyser = context.createAnalyser()//,
     //dillaConv = null,
     //dillaBuffer = null
 
