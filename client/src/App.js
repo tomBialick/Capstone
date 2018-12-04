@@ -50,6 +50,7 @@ class App extends Component {
     let ctx = canvas.getContext('2d');
 
     gainNode.connect(analyser);
+    convolver.connect(context.destination);
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
 
