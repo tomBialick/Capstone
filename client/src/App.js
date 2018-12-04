@@ -11,7 +11,8 @@ var context = new AudioContext(),
     oscillator = null,
     convolver = context.createConvolver(),
     analyser = context.createAnalyser(),
-    dillaConv = null
+    dillaConv = null,
+    dillaBuffer = null
 
 class App extends Component {
   constructor(props) {
