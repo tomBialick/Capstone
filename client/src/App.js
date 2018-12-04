@@ -107,7 +107,7 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    return ((height/50) * -1) + 0
+    return ((height/50) * 1.5) + 0
   }
 
   playSound() {
