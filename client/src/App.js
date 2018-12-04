@@ -42,15 +42,14 @@ class App extends Component {
   }
 
   createVisual() {
+    convolver.buffer = this.impulseResponse(1,1,false);
     convolver.connect(gainNode)
-    convolver.buffer = this.impulseResponse(4,4,false);
-
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
 
     gainNode.connect(analyser);
-    convolver.connect(context.destination);
+    //convolver.connect(context.destination);
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
 
