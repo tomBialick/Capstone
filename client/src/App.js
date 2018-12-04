@@ -202,10 +202,10 @@ class App extends Component {
         <form>
           <label>Reverb Duration:
             <input type="number" value={this.state.dur} onChange={this.reverbDurChange}/>
-          <label>
+          </label>
           <label>Reverb Decay:
             <input type="number" value={this.state.dec} onChange={this.reverbDecChange}/>
-          <label>
+          </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
