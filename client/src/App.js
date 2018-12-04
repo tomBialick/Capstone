@@ -3,9 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 
 var context = new AudioContext(),
+    Dilla = require('dilla'),
+    dillaGain = context.createGain(),
+    dillaOsc = null,
     gainNode = context.createGain(),
     oscillator = null,
-    convolver = context.createConvolver()
+    convolver = context.createConvolver(),
+    analyser = context.createAnalyser()
 
 class App extends Component {
   constructor(props) {
@@ -19,8 +23,10 @@ class App extends Component {
       tz: 0,
       wave: "sine",
       altitude: 1,
-      play: 0
+      play: 0,
+      isToggleOn: false
     };
+    this.toggleMetro = this.toggleMetro.bind(this)
     this.playSound();
   }
 
@@ -51,7 +57,6 @@ class App extends Component {
   }
 
   createVisual() {
-    var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
 
@@ -118,6 +123,50 @@ class App extends Component {
     convolver.buffer = this.impulseResponse(.4,2,false);
     convolver.connect(gainNode)
     oscillator.start(context.currentTime);
+
+    var high = {
+      'position': '*.1.01',
+      'freq': 440,
+      'duration': 15
+    };
+    var low = { 'freq': 330, 'duration': 15 };
+
+    dilla.set('metronome', [
+      high,
+      ['*.>1.01', low]
+    ]);
+
+    dilla.on('step', function (step) {
+      if (step.event === 'start') {
+        dillaOsc = step.context.createOscillator();
+        dillaGain = step.context.createGain();
+        dillaOsc.connect(dillaGain);
+        dillaGain.connect(analyser);
+        dillaGain.connect(step.context.destination);
+        dillaOsc.frequency.value = step.args.freq;
+        dillaGain.gain.setValueAtTime(1, step.time);
+        dillaOsc.start(step.time);
+      }
+      else if (step.event === 'stop' && dillaOsc) {
+        dillaGain.gain.setValueAtTime(1, step.time);
+        dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
+        dillaOsc.stop(step.time + 0.1);
+        dillaOsc = null;
+        dillaGain = null;
+      }
+    });
+  }
+
+  toggleMetro() {
+    if (!this.state.isToggleOn) {
+      dilla.start()
+    }
+    else {
+      dilla.stop()
+    }
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
   }
 
 /*
@@ -132,6 +181,7 @@ class App extends Component {
   render() {
     return (
       <div style={{width:'100%',height:'100%'}}>
+        <button onClick={this.toggleMetro}>Toggle Metronome</button>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
       </div>
