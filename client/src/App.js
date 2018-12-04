@@ -25,9 +25,13 @@ class App extends Component {
       wave: "sine",
       altitude: 1,
       play: 0,
-      isToggleOn: false
+      isToggleOn: false,
+      dur: .4,
+      dec: 2
     };
     this.toggleMetro = this.toggleMetro.bind(this)
+    this.reverbDurChange = this.reverbDurChange.bind(this)
+    this.reverbDecChange = this.reverbDecChange.bind(this)
     this.playSound();
   }
 
@@ -124,7 +128,7 @@ class App extends Component {
     }
     //oscillator.connect(gainNode);
     oscillator.connect(convolver);
-    convolver.buffer = this.impulseResponse(.4,2,false);
+    convolver.buffer = this.impulseResponse(this.state.dur, this.state.dec,false);
     convolver.connect(gainNode)
     oscillator.start(context.currentTime);
 
@@ -173,6 +177,14 @@ class App extends Component {
       isToggleOn: !state.isToggleOn
     }));
   }
+  reverbDurChange(event) {
+    this.setState({dur: event.target.value})
+    convolver.buffer = this.impulseResponse(event.target.value, this.state.dec,false);
+  }
+  reverbDecChange(event) {
+    this.setState({dec: event.target.value})
+    convolver.buffer = this.impulseResponse(this.state.dur, event.target.value,false);
+  }
 
 /*
 <h1>Gx: {this.state.gx}</h1>
@@ -187,6 +199,14 @@ class App extends Component {
     return (
       <div style={{width:'100%',height:'100%'}}>
         <button onClick={this.toggleMetro}>Toggle Metronome</button>
+        <form>
+          <label>Reverb Duration:
+            <input type="number" value={this.state.dur} onChange={this.reverbDurChange}/>
+          <label>
+          <label>Reverb Decay:
+            <input type="number" value={this.state.dec} onChange={this.reverbDecChange}/>
+          <label>
+        </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
       </div>
