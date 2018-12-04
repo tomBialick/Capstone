@@ -13,6 +13,7 @@ var altitude = 0
 var buttonHeld = "0"
 
 router.get('/', (req, res, next) => {
+  console.log(req.body.held)
   res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude, held: buttonHeld}})
 })
 
