@@ -35,6 +35,7 @@ class App extends Component {
     this.toggleMetro = this.toggleMetro.bind(this)
     this.reverbDurChange = this.reverbDurChange.bind(this)
     this.reverbDecChange = this.reverbDecChange.bind(this)
+    this.metroReverbChange = this.metroReverbChange.bind(this)
     this.playSound();
   }
 
@@ -277,6 +278,9 @@ class App extends Component {
         }
       });
     }
+    this.setState(state => ({
+      metroReverbCheck: !state.metroReverbCheck
+    }));
   }
 
 /*
