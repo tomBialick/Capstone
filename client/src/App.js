@@ -115,7 +115,7 @@ class App extends Component {
     }
     //oscillator.connect(gainNode);
     oscillator.connect(convolver);
-    convolver.buffer = this.impulseResponse(.2,2,false);
+    convolver.buffer = this.impulseResponse(.4,2,false);
     convolver.connect(gainNode)
     oscillator.start(context.currentTime);
   }
