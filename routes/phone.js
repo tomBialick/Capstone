@@ -14,6 +14,7 @@ var buttonHeld = "0"
 
 router.get('/', (req, res, next) => {
   res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude, soundHeld: buttonHeld}})
+  console.log(buttonHeld)
 })
 
 /*
