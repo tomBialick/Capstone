@@ -41,6 +41,14 @@ class App extends Component {
       return impulse;
   }
 
+  sensorToMidiToFreq(angle) {
+    //angle is +/- 90
+    //midi is 0 to 127
+    angle += 90
+    var midiNote = Math.floor((angle/1.4));
+    return 27.5 * Math.pow(2, ((midiNote - 21) / 12));
+  }
+
   createVisual() {
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
@@ -71,7 +79,7 @@ class App extends Component {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
       this.setState({gx: parseFloat(data.body.gx), gy: parseFloat(data.body.gy), gz: parseFloat(data.body.gz), tx: parseFloat(data.body.tx), ty: parseFloat(data.body.ty), tz: parseFloat(data.body.tz), altitude: parseFloat(data.body.height), wave: data.body.wave, play: data.body.held});
-      oscillator.frequency.setTargetAtTime(((parseFloat(data.body.tx)) * 15), context.currentTime , 0.001);
+      oscillator.frequency.setTargetAtTime(sensorToMidiToFreq(parseFloat(data.body.tx)), context.currentTime , 0.001);
       if (data.body.held === "1") {
         gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
       }
@@ -106,7 +114,7 @@ class App extends Component {
     }
     //oscillator.connect(gainNode);
     oscillator.connect(convolver);
-    convolver.buffer = this.impulseResponse(.5,2,false);
+    convolver.buffer = this.impulseResponse(.2,2,false);
     convolver.connect(gainNode)
     oscillator.start(context.currentTime);
   }
