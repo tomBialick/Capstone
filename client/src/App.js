@@ -10,7 +10,8 @@ var context = new AudioContext(),
     gainNode = context.createGain(),
     oscillator = null,
     convolver = context.createConvolver(),
-    analyser = context.createAnalyser()
+    analyser = context.createAnalyser(),
+    dillaConv = null
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class App extends Component {
       play: 0,
       isToggleOn: false,
       dur: .4,
-      dec: 2
+      dec: 2,
+      metroReverbCheck: false
     };
     this.toggleMetro = this.toggleMetro.bind(this)
     this.reverbDurChange = this.reverbDurChange.bind(this)
@@ -198,6 +200,84 @@ class App extends Component {
     }
   }
 
+  metroReverbChange() {
+    if (!this.state.metroReverbCheck) {
+      dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2})
+      dillaOsc.disconnect(dillaGain)
+      var high = {
+        'position': '*.1.01',
+        'freq': 220,
+        'duration': 15
+      };
+      var low = { 'freq': 110, 'duration': 15 };
+
+      dilla.set('metronome', [
+        high,
+        ['*.>1.01', low]
+      ]);
+
+      dilla.on('step', function (step) {
+        if (step.event === 'start') {
+          dillaOsc = step.context.createOscillator();
+          dillaGain = step.context.createGain();
+          dillaConv = step.context.createConvolver()
+          dillaOsc.connect(dillaConv);
+          dillaBuffer = this.impulseResponse(this.state.dur, this.state.dec,false);
+          dillaConv.connect(dillaGain);
+          dillaGain.connect(analyser);
+          dillaGain.connect(step.context.destination);
+          dillaOsc.frequency.value = step.args.freq;
+          dillaGain.gain.setValueAtTime(.65, step.time);
+          dillaOsc.start(step.time);
+        }
+        else if (step.event === 'stop' && dillaOsc) {
+          dillaGain.gain.setValueAtTime(.65, step.time);
+          dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
+          dillaOsc.stop(step.time + 0.1);
+          dillaOsc = null;
+          dillaGain = null;
+          dillaConv = null;
+          dillaBuffer = null;
+        }
+      });
+    }
+    else {
+      dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2})
+      dillaConv.disconnect(dillaGain)
+      var high = {
+        'position': '*.1.01',
+        'freq': 220,
+        'duration': 15
+      };
+      var low = { 'freq': 110, 'duration': 15 };
+
+      dilla.set('metronome', [
+        high,
+        ['*.>1.01', low]
+      ]);
+
+      dilla.on('step', function (step) {
+        if (step.event === 'start') {
+          dillaOsc = step.context.createOscillator();
+          dillaGain = step.context.createGain();
+          dillaOsc.connect(dillaGain);
+          dillaGain.connect(analyser);
+          dillaGain.connect(step.context.destination);
+          dillaOsc.frequency.value = step.args.freq;
+          dillaGain.gain.setValueAtTime(.65, step.time);
+          dillaOsc.start(step.time);
+        }
+        else if (step.event === 'stop' && dillaOsc) {
+          dillaGain.gain.setValueAtTime(.65, step.time);
+          dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
+          dillaOsc.stop(step.time + 0.1);
+          dillaOsc = null;
+          dillaGain = null;
+        }
+      });
+    }
+  }
+
 /*
 <h1>Gx: {this.state.gx}</h1>
 <h1>Gy: {this.state.gy}</h1>
@@ -217,6 +297,9 @@ class App extends Component {
           </label>
           <label>Reverb Decay:
             <input type="number" value={this.state.dec} step=".1" min=".1" onChange={this.reverbDecChange}/>
+          </label>
+          <label>Metronome Reveb:
+            <input type="checkbox" value={this.state.metroReverbCheck} onChange={this.metroReverbChange}/>
           </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
