@@ -13,7 +13,6 @@ var altitude = 0
 var buttonHeld = "0"
 
 router.get('/', (req, res, next) => {
-  console.log(buttonHeld)
   res.send({body: {gx: gX, gy: gY, gz: gZ, tx: tX, ty: tY, tz: tZ, wave: waveform, height: altitude, held: buttonHeld}})
 })
 
@@ -43,7 +42,6 @@ router.post('/', (req, res, next) => {
     altitude = req.body.ty
     buttonHeld = req.body.held
     //Altimeter is garbage for this
-    //altitude =
   }
 
 
