@@ -194,6 +194,10 @@ class App extends Component {
 <h1>Ty: {this.state.ty}</h1>
 <h1>Tz: {this.state.tz}</h1>
 <h1>Al: {this.state.altitude}</h1>
+
+<label>Reverb Decay:
+  <input type="number" value={this.state.dec} step=".1" onChange={this.reverbDecChange}/>
+</label>
 */
   render() {
     return (
@@ -201,10 +205,7 @@ class App extends Component {
         <button onClick={this.toggleMetro}>Toggle Metronome</button>
         <form>
           <label>Reverb Duration:
-            <input type="number" value={this.state.dur} onChange={this.reverbDurChange}/>
-          </label>
-          <label>Reverb Decay:
-            <input type="number" value={this.state.dec} onChange={this.reverbDecChange}/>
+            <input type="number" value={this.state.dur} step=".1" onChange={this.reverbDurChange}/>
           </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
