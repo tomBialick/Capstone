@@ -11,8 +11,8 @@ var context = new AudioContext(),
     oscillator = null,
     convolver = context.createConvolver(),
     analyser = context.createAnalyser(),
-    dillaConv = null,
-    dillaBuffer = null
+    //dillaConv = null,
+    //dillaBuffer = null
 
 class App extends Component {
   constructor(props) {
@@ -202,7 +202,7 @@ class App extends Component {
     }
   }
 
-  metroReverbChange() {
+  /*metroReverbChange() {
     if (!this.state.metroReverbCheck) {
       dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2})
       //dillaOsc.disconnect(dillaGain)
@@ -282,6 +282,7 @@ class App extends Component {
       metroReverbCheck: !state.metroReverbCheck
     }));
   }
+  */
 
 /*
 <h1>Gx: {this.state.gx}</h1>
@@ -291,6 +292,9 @@ class App extends Component {
 <h1>Ty: {this.state.ty}</h1>
 <h1>Tz: {this.state.tz}</h1>
 <h1>Al: {this.state.altitude}</h1>
+<label>Metronome Reveb:
+  <input type="checkbox" value={this.state.metroReverbCheck} onChange={this.metroReverbChange}/>
+</label>
 */
   render() {
     return (
@@ -302,9 +306,6 @@ class App extends Component {
           </label>
           <label>Reverb Decay:
             <input type="number" value={this.state.dec} step=".1" min=".1" onChange={this.reverbDecChange}/>
-          </label>
-          <label>Metronome Reveb:
-            <input type="checkbox" value={this.state.metroReverbCheck} onChange={this.metroReverbChange}/>
           </label>
         </form>
         <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
