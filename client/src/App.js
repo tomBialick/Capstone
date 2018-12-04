@@ -205,7 +205,7 @@ class App extends Component {
   metroReverbChange() {
     if (!this.state.metroReverbCheck) {
       dilla = new Dilla(context, {"tempo": 120, "beatsPerBar": 4, "loopLength": 2})
-      dillaOsc.disconnect(dillaGain)
+      //dillaOsc.disconnect(dillaGain)
       var high = {
         'position': '*.1.01',
         'freq': 220,
