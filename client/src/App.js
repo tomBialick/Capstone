@@ -107,7 +107,7 @@ class App extends Component {
   }
 
   calculateGain(height) {
-    return (-(height/90) * 1) + 0
+    return ((height/50) * -1) + 0
   }
 
   playSound() {
@@ -146,11 +146,11 @@ class App extends Component {
         dillaGain.connect(analyser);
         dillaGain.connect(step.context.destination);
         dillaOsc.frequency.value = step.args.freq;
-        dillaGain.gain.setValueAtTime(.75, step.time);
+        dillaGain.gain.setValueAtTime(.65, step.time);
         dillaOsc.start(step.time);
       }
       else if (step.event === 'stop' && dillaOsc) {
-        dillaGain.gain.setValueAtTime(.75, step.time);
+        dillaGain.gain.setValueAtTime(.65, step.time);
         dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
         dillaOsc.stop(step.time + 0.1);
         dillaOsc = null;
