@@ -42,16 +42,15 @@ class App extends Component {
   }
 
   createVisual() {
-    convolver.buffer = this.impulseResponse(1,1,false);
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
 
     gainNode.connect(analyser);
     //convolver.connect(gainNode)
-    gainNode.connect(convolver);
-    convolver.connect(analyser)
-    convolver.connect(context.destination);
+    //gainNode.connect(convolver);
+    //convolver.connect(analyser)
+    //convolver.connect(context.destination);
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
 
@@ -109,7 +108,10 @@ class App extends Component {
     else {
       gainNode.gain.setTargetAtTime(this.calculateGain(0), context.currentTime, 0.01);
     }
-    oscillator.connect(gainNode);
+    //oscillator.connect(gainNode);
+    oscillator.connect(convolver);
+    convolver.buffer = this.impulseResponse(1,1,false);
+    convolver.connect(gainNode)
     oscillator.start(context.currentTime);
   }
 
