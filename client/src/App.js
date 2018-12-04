@@ -179,9 +179,8 @@ class App extends Component {
   }
   reverbDurChange(event) {
     if (event.target.value) {
-      oscillator.disconnect(convolver)
+      //oscillator.disconnect(convolver)
       convolver.disconnect(gainNode)
-      convolver = null
       this.setState({dur: event.target.value})
       convolver = context.createConvolver()
       oscillator.connect(convolver);
