@@ -4,7 +4,7 @@ import './App.css';
 
 var context = new AudioContext(),
     gainNode = context.createGain(),
-    oscillator = null;
+    oscillator = null,
     convolver = context.createConvolver()
 
 convolver.connect(gainNode)
