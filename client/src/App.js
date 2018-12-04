@@ -17,7 +17,8 @@ class App extends Component {
       ty: 0,
       tz: 0,
       wave: "sine",
-      altitude: 1
+      altitude: 1,
+      play: 0
     };
     this.playSound();
   }
@@ -51,9 +52,14 @@ class App extends Component {
   fetchHelper() {
     fetch('http://5halfcap.ngrok.io/phone', {method: 'GET'}).then((response) => response.json()).then((responseJson) => {
       var data = responseJson;
-      this.setState({gx: parseFloat(data.body.gx), gy: parseFloat(data.body.gy), gz: parseFloat(data.body.gz), tx: parseFloat(data.body.tx), ty: parseFloat(data.body.ty), tz: parseFloat(data.body.tz), altitude: parseFloat(data.body.height), wave: data.body.wave});
+      this.setState({gx: parseFloat(data.body.gx), gy: parseFloat(data.body.gy), gz: parseFloat(data.body.gz), tx: parseFloat(data.body.tx), ty: parseFloat(data.body.ty), tz: parseFloat(data.body.tz), altitude: parseFloat(data.body.height), wave: data.body.wave, play: parseInt(data.body.held)});
       oscillator.frequency.setTargetAtTime(((parseFloat(data.body.tx)) * 15), context.currentTime , 0.001);
-      gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
+      if (parseInt(data.body.held === 1)) {
+        gainNode.gain.setTargetAtTime(this.calculateGain(parseFloat(data.body.height)), context.currentTime, 0.001);
+      }
+      else {
+        gainNode.gain.setTargetAtTime(this.calculateGain(0), context.currentTime, 0.001);
+      }
       oscillator.type = data.body.wave;
     });
   }
@@ -74,7 +80,12 @@ class App extends Component {
     oscillator = context.createOscillator();
     oscillator.type = this.state.wave;
     oscillator.frequency.setTargetAtTime(((this.state.tx) * 15), context.currentTime, 0.01);
-    gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
+    if (this.state.play === 1) {
+      gainNode.gain.setTargetAtTime(this.calculateGain(this.state.altitude), context.currentTime, 0.01);
+    }
+    else {
+      gainNode.gain.setTargetAtTime(this.calculateGain(0), context.currentTime, 0.01);
+    }
     oscillator.connect(gainNode);
     oscillator.start(context.currentTime);
   }
