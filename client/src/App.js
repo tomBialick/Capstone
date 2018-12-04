@@ -7,8 +7,6 @@ var context = new AudioContext(),
     oscillator = null,
     convolver = context.createConvolver()
 
-convolver.connect(gainNode)
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +24,27 @@ class App extends Component {
     this.playSound();
   }
 
+  impulseResponse( duration, decay, reverse ) {
+      var sampleRate = audioContext.sampleRate;
+      var length = sampleRate * duration;
+      var impulse = audioContext.createBuffer(2, length, sampleRate);
+      var impulseL = impulse.getChannelData(0);
+      var impulseR = impulse.getChannelData(1);
+
+      if (!decay)
+          decay = 2.0;
+      for (var i = 0; i < length; i++){
+        var n = reverse ? length - i : i;
+        impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+        impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+      }
+      return impulse;
+  }
+
   createVisual() {
+    convolver.connect(gainNode)
+    convolver.buffer = impulseResponse(4,4,false);
+
     var analyser = context.createAnalyser()
     let canvas = this.refs.analyzerCanvas;
     let ctx = canvas.getContext('2d');
