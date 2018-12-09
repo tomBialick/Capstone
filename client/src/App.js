@@ -60,8 +60,8 @@ class App extends Component {
     //angle is +/- 90
     //midi is 0 to 127
     angle += 90
-    var midiNote = Math.floor((angle/1.875));
-    var result = 27.5 * Math.pow(2, ((midiNote - 21) / 12));
+    var midiNote = Math.floor((angle/7.5)) + 72;
+    var result = 440 * Math.pow(2, ((midiNote - 69) / 12));
     return result
   }
 
@@ -153,14 +153,14 @@ class App extends Component {
         dillaOsc = step.context.createOscillator();
         dillaGain = step.context.createGain();
         dillaOsc.connect(dillaGain);
-        dillaGain.connect(analyser);
+        //dillaGain.connect(analyser);
         dillaGain.connect(step.context.destination);
         dillaOsc.frequency.value = step.args.freq;
-        dillaGain.gain.setValueAtTime(.65, step.time);
+        dillaGain.gain.setValueAtTime(.9, step.time);
         dillaOsc.start(step.time);
       }
       else if (step.event === 'stop' && dillaOsc) {
-        dillaGain.gain.setValueAtTime(.65, step.time);
+        dillaGain.gain.setValueAtTime(.9, step.time);
         dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
         dillaOsc.stop(step.time + 0.1);
         dillaOsc = null;
