@@ -150,11 +150,11 @@ class App extends Component {
 
     dilla.on('step', function (step) {
       if (step.event === 'start') {
-        dillaOsc = step.context.createOscillator();
-        dillaGain = step.context.createGain();
+        dillaOsc = context.createOscillator();
+        dillaGain = context.createGain();
         dillaOsc.connect(dillaGain);
         //dillaGain.connect(analyser);
-        dillaGain.connect(step.context.destination);
+        dillaGain.connect(context.destination);
         dillaOsc.frequency.value = step.args.freq;
         dillaGain.gain.setValueAtTime(.9, step.time);
         dillaOsc.start(step.time);
