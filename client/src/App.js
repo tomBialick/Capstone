@@ -75,19 +75,18 @@ class App extends Component {
     var colorFill = 0xC70039
     function renderFrame(){
       let freqData = new Uint8Array(analyser.frequencyBinCount)
-      let dataArray = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
       analyser.getByteTimeDomainData(dataArray);
-      /*let bars = 100;
+      let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-      }
+      }/*
       var maxRad = 0
       if (canvas.height < canvas.width) {
         maxRad = (canvas.height/2) - 1
@@ -104,26 +103,6 @@ class App extends Component {
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
       }*/
-      ctx.lineWidth = 1
-      ctx.strokeStyle = '#000000'
-      ctx.beginPath()
-      var sliceWidth = canvas.width * 1.0 / analyser.frequencyBinCount;
-      var x = 0;
-      for(var i = 0; i < analyser.frequencyBinCount; i++) {
-
-        var v = freqData[i] / 128.0;
-        var y = v * canvas.height/2;
-
-        if(i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-
-        x += sliceWidth;
-      }
-      ctx.lineTo(canvas.width, canvas.height/2);
-      ctx.stroke();
     };
     renderFrame()
   }
@@ -333,10 +312,12 @@ class App extends Component {
 <label>Metronome Reveb:
   <input type="checkbox" value={this.state.metroReverbCheck} onChange={this.metroReverbChange}/>
 </label>
+style={{width:'100%',height:'100%'}}
+style={{width:'100%',height:'100%'}}
 */
   render() {
     return (
-      <div style={{width:'100%',height:'100%'}}>
+      <div>
         <button onClick={this.toggleMetro}>Toggle Metronome</button>
         <form>
           <label>Reverb Duration:
@@ -346,7 +327,7 @@ class App extends Component {
             <input type="number" value={this.state.dec} step=".1" min=".1" onChange={this.reverbDecChange}/>
           </label>
         </form>
-        <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
+        <canvas ref="analyzerCanvas" id="analyzer">
         </canvas>
       </div>
     );
