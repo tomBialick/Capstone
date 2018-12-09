@@ -74,18 +74,19 @@ class App extends Component {
     analyser.connect(context.destination);
     var colorFill = 0xC70039
     function renderFrame(){
-      let freqData = new Uint8Array(analyser.frequencyBinCount)
+      let freqData, dataArray = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
+      analyser.getByteTimeDomainData(dataArray);
       /*let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-      }*/
+      }
       var maxRad = 0
       if (canvas.height < canvas.width) {
         maxRad = (canvas.height/2) - 1
@@ -101,7 +102,27 @@ class App extends Component {
           ctx.lineWidth = 1
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
+      }*/
+      ctx.lineWidth = 1
+      ctx.strokeStyle = '#000000'
+      ctx.beginPath()
+      var sliceWidth = canvas.width * 1.0 / analyser.frequencyBinCount;
+      var x = 0;
+      for(var i = 0; i < analyser.frequencyBinCount; i++) {
+
+        var v = dataArray[i] / 128.0;
+        var y = v * canvas.height/2;
+
+        if(i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
       }
+      canvasCtx.lineTo(canvas.width, canvas.height/2);
+      canvasCtx.stroke();
     };
     renderFrame()
   }
