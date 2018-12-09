@@ -150,17 +150,17 @@ class App extends Component {
 
     dilla.on('step', function (step) {
       if (step.event === 'start') {
-        dillaOsc = context.createOscillator();
-        dillaGain = context.createGain();
+        dillaOsc = step.context.createOscillator();
+        dillaGain = step.context.createGain();
         dillaOsc.connect(dillaGain);
         //dillaGain.connect(analyser);
-        dillaGain.connect(context.destination);
+        dillaGain.connect(step.context.destination);
         dillaOsc.frequency.value = step.args.freq;
-        dillaGain.gain.setValueAtTime(.9, step.time);
+        dillaGain.gain.setValueAtTime(1.5, step.time);
         dillaOsc.start(step.time);
       }
       else if (step.event === 'stop' && dillaOsc) {
-        dillaGain.gain.setValueAtTime(.9, step.time);
+        dillaGain.gain.setValueAtTime(1.5, step.time);
         dillaGain.gain.linearRampToValueAtTime(0, step.time + 0.1);
         dillaOsc.stop(step.time + 0.1);
         dillaOsc = null;
@@ -170,13 +170,10 @@ class App extends Component {
   }
 
   toggleMetro() {
-    console.log("toggle metro")
     if (!this.state.isToggleOn) {
-      console.log("start metro")
       dilla.start()
     }
     else {
-      console.log("stop metro")
       //dilla.clear()
       dilla.stop()
     }
