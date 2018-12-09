@@ -79,7 +79,7 @@ class App extends Component {
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
-      analyser.getByteTimeDomainData(dataArray);
+      //analyser.getByteTimeDomainData(dataArray);
       let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
