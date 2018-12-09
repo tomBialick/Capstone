@@ -74,7 +74,8 @@ class App extends Component {
     analyser.connect(context.destination);
     var colorFill = 0xC70039
     function renderFrame(){
-      let freqData, dataArray = new Uint8Array(analyser.frequencyBinCount)
+      let freqData = new Uint8Array(analyser.frequencyBinCount)
+      let dataArray = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
