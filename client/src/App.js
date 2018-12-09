@@ -72,19 +72,27 @@ class App extends Component {
     gainNode.connect(analyser);
     gainNode.connect(context.destination);
     analyser.connect(context.destination);
-
+    var colorFill = 0xC70039
     function renderFrame(){
       let freqData = new Uint8Array(analyser.frequencyBinCount)
       requestAnimationFrame(renderFrame)
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
-      let bars = 100;
+      /*let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
+      }*/
+      for (var i = 0; i < analyser.frequencyBinCount; i++) {
+          ctx.beginPath()
+          radius = freqData[i]
+          ctx.arc(canvas.width/2, canvas.height/2, radius, 0, Math.PI * 2, true)
+          ctx.strokeStyle = '#'+ colorFill.toString(16)
+          ctx.stroke()
+          colorFill = (colorFill + 5) % 0xFFFFFF
       }
     };
     renderFrame()
