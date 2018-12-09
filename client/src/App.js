@@ -170,10 +170,13 @@ class App extends Component {
   }
 
   toggleMetro() {
+    console.log("toggle metro")
     if (!this.state.isToggleOn) {
+      console.log("start metro")
       dilla.start()
     }
     else {
+      console.log("stop metro")
       //dilla.clear()
       dilla.stop()
     }
