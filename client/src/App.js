@@ -111,7 +111,7 @@ class App extends Component {
       var x = 0;
       for(var i = 0; i < analyser.frequencyBinCount; i++) {
 
-        var v = dataArray[i] / 128.0;
+        var v = freqData[i] / 128.0;
         var y = v * canvas.height/2;
 
         if(i === 0) {
