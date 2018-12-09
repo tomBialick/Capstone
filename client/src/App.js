@@ -81,7 +81,7 @@ class App extends Component {
       ctx.fillStyle = '#9933ff';
       //analyser.getByteTimeDomainData(dataArray);
       let bars = 100;
-      for (var i = 0; i < bars; i++) {
+      for (var i = 59; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
