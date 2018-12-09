@@ -121,8 +121,8 @@ class App extends Component {
 
         x += sliceWidth;
       }
-      canvasCtx.lineTo(canvas.width, canvas.height/2);
-      canvasCtx.stroke();
+      ctx.lineTo(canvas.width, canvas.height/2);
+      ctx.stroke();
     };
     renderFrame()
   }
