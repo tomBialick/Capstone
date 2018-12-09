@@ -86,11 +86,19 @@ class App extends Component {
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }*/
+      var maxRad = 0
+      if (canvas.height < canvas.width) {
+        maxRad = (canvas.height/2) - 1
+      }
+      else {
+        maxRad = (canvas.width/2) - 1
+      }
       for (var i = 0; i < analyser.frequencyBinCount; i++) {
           ctx.beginPath()
           var radius = freqData[i]/2
           ctx.arc(canvas.width/2, canvas.height/2, radius, 0, Math.PI * 2, true)
           ctx.strokeStyle = '#'+ colorFill.toString(16)
+          ctx.lineWidth = 1
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
       }
