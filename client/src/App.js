@@ -88,7 +88,7 @@ class App extends Component {
       }*/
       for (var i = 0; i < analyser.frequencyBinCount; i++) {
           ctx.beginPath()
-          var radius = freqData[i]
+          var radius = freqData[i]/2
           ctx.arc(canvas.width/2, canvas.height/2, radius, 0, Math.PI * 2, true)
           ctx.strokeStyle = '#'+ colorFill.toString(16)
           ctx.stroke()
