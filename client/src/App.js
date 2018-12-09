@@ -312,12 +312,10 @@ class App extends Component {
 <label>Metronome Reveb:
   <input type="checkbox" value={this.state.metroReverbCheck} onChange={this.metroReverbChange}/>
 </label>
-style={{width:'100%',height:'100%'}}
-style={{width:'100%',height:'100%'}}
 */
   render() {
     return (
-      <div>
+      <div style={{width:'100%',height:'100%'}}>
         <button onClick={this.toggleMetro}>Toggle Metronome</button>
         <form>
           <label>Reverb Duration:
@@ -327,7 +325,7 @@ style={{width:'100%',height:'100%'}}
             <input type="number" value={this.state.dec} step=".1" min=".1" onChange={this.reverbDecChange}/>
           </label>
         </form>
-        <canvas ref="analyzerCanvas" id="analyzer">
+        <canvas ref="analyzerCanvas" id="analyzer" style={{width:'100%',height:'100%'}}>
         </canvas>
       </div>
     );
