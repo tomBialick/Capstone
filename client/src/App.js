@@ -96,7 +96,7 @@ class App extends Component {
       let originx = canvas.width/2
       let originy = canvas.height/2
       for (var i = 0; i < wedges; i++) {
-        let ax = originx + (-(freqData[i]/10)*Math.cos(toRadians(i * phi))))
+        let ax = originx + (-(freqData[i]/10)*Math.cos(toRadians(i * phi)))
         let ay = originy + (-(freqData[i]/10)*Math.sin(toRadians(i * phi)))
         let bx = originx + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
         let by = originy + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
