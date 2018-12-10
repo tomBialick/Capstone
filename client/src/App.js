@@ -80,13 +80,35 @@ class App extends Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
       //analyser.getByteTimeDomainData(dataArray);
-      let bars = 41;
+      /*
+      let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
-        let bar_height = -(freqData[i + 59] / 2);
+        let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-      }/*
+      }*/
+      function toRadians(angle) {
+        return angle * (Math.PI/180)
+      }
+      let wedges = 100
+      let phi = 3.6
+      let originx = canvas.width/2
+      let originy = canvas.height/2
+      for (var i = 0; i < wedges; i++) {
+        let ax = originx + (-(freqData[i]/10)*Math.cos(toRadians(i * phi))))
+        let ay = originy + (-(freqData[i]/10)*Math.sin(toRadians(i * phi)))
+        let bx = originx + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
+        let by = originy + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
+
+        context.beginPath()
+        context.moveTo(originx, originy)
+        context.lineTo(ax, ay)
+        context.lineTo(bx, by)
+        context.fill()
+
+      }
+      /*
       var maxRad = 0
       if (canvas.height < canvas.width) {
         maxRad = (canvas.height/2) - 1
