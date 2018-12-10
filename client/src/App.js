@@ -101,11 +101,11 @@ class App extends Component {
         let bx = originx + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
         let by = originy + (-(freqData[i]/10)*Math.sin(toRadians((i + 1) * phi)))
 
-        context.beginPath()
-        context.moveTo(originx, originy)
-        context.lineTo(ax, ay)
-        context.lineTo(bx, by)
-        context.fill()
+        ctx.beginPath()
+        ctx.moveTo(originx, originy)
+        ctx.lineTo(ax, ay)
+        ctx.lineTo(bx, by)
+        ctx.fill()
 
       }
       /*
