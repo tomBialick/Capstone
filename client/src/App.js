@@ -101,7 +101,7 @@ class App extends Component {
       let barRadius = highest.value / 4
       ctx.translate(canvas.width/2, canvas.height/2)
       ctx.rotate(barTheta*Math.PI/180)
-      ctx.rect(-barRadius/2, -1, barRadius, 2)
+      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
       /*
       function toRadians(angle) {
         return angle * (Math.PI/180)
