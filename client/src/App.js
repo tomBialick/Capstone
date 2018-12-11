@@ -104,6 +104,18 @@ class App extends Component {
       ctx.rotate(barTheta*Math.PI/180)
       ctx.fillRect(-barRadius/2, -1, barRadius, 2)
       ctx.restore()
+      ctx.translate(canvas.width/2, canvas.height/2)
+      ctx.rotate((90 + barTheta)*Math.PI/180)
+      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
+      ctx.restore()
+      ctx.translate(canvas.width/2, canvas.height/2)
+      ctx.rotate((45 + barTheta)*Math.PI/180)
+      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
+      ctx.restore()
+      ctx.translate(canvas.width/2, canvas.height/2)
+      ctx.rotate((135 + barTheta)*Math.PI/180)
+      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
+      ctx.restore()
       /*
       function toRadians(angle) {
         return angle * (Math.PI/180)
