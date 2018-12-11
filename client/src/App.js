@@ -81,14 +81,28 @@ class App extends Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
       //analyser.getByteTimeDomainData(dataArray);
-      /*
-      let bars = 100;
+      /*let bars = 100;
       for (var i = 0; i < bars; i++) {
         let bar_x = i * 3;
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-      }*//*
+      }*/
+      highest = {index: 0,
+                 value: 0}
+      for (var i = 0; i < 180; i++) {
+        let amp = Math.abs(freqData[i])
+        if (highest.value < amp) {
+          highest.index = i
+          highest.value = amp
+        }
+      }
+      let barTheta = highest.index
+      let barRadius = highest.value / 4
+      ctx.translate(canvas.width/2, canvas.height/2)
+      ctx.rotate(barTheta*Math.PI/180)
+      ctx.rect(-barRadius/2, -1, barRadius, 2)
+      /*
       function toRadians(angle) {
         return angle * (Math.PI/180)
       }
@@ -126,20 +140,6 @@ class App extends Component {
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
       }*/
-      var paper = Raphael(0,0,canvas.width, canvas.height);
-      var midx = canvas.width/2;
-      var midy = canvas.height/2;
-      var beg = midx/3;
-      var end = beg - 10;
-      //top half for-loop
-      for (var i = 0; i < analyser.frequencyBinCount/2; i++){
-        var len = freqData[i];
-        var secondlen = len + 10;
-        var points = "M" + midx + "," + midy + "L" + beg + "," + len + "L" + secondlen + "," + end + "z";
-        beg += 10;
-        end = beg - 10;
-        var mark = paper.path(points);
-      }
     };
     renderFrame()
   }
