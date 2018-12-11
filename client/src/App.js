@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael')
 
 var context = new AudioContext(),
     Dilla = require('dilla'),
@@ -87,7 +88,7 @@ class App extends Component {
         let bar_width = 2;
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
-      }*/
+      }*//*
       function toRadians(angle) {
         return angle * (Math.PI/180)
       }
@@ -108,7 +109,7 @@ class App extends Component {
         ctx.fill()
 
       }
-      /*
+      *//*
       var maxRad = 0
       if (canvas.height < canvas.width) {
         maxRad = (canvas.height/2) - 1
@@ -125,6 +126,20 @@ class App extends Component {
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
       }*/
+      var paper = Raphael(0,0,300,300);
+      var midx = canvas.width/2;
+      var midy = canvas.height/2;
+      var beg = midx/3;
+      var end = beg - 10;
+      //top half for-loop
+      for (var i = 0; i < anaylser.frequencyBinCount/2; i++){
+        var len = freqData[i] * 2;
+        var secondlen = len + 10;
+        var points = "M" + midx + "," + midy + "L" + beg + "," + len + "L" + secondlen + "," + end + "z";
+        beg += 10;
+        end = beg - 10;
+        var mark = paper.path(points);
+      }
     };
     renderFrame()
   }
