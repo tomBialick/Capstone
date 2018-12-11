@@ -92,33 +92,12 @@ class App extends Component {
       var highestValue = 0
       for (var i = 0; i < 180; i++) {
         let amp = Math.abs(freqData[i])
-        if (highestValue < amp) {
-          highestIndex = i
-          highestValue = amp
-        }
+        ctx.save()
+        ctx.translate(canvas.width/2, canvas.height/2)
+        ctx.rotate(i*Math.PI/180)
+        ctx.fillRect(-amp/2, -1, amp, 2)
+        ctx.restore()
       }
-      let barTheta = highestIndex
-      let barRadius = highestValue / 4
-      ctx.save()
-      ctx.translate(canvas.width/2, canvas.height/2)
-      ctx.rotate(barTheta*Math.PI/180)
-      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
-      ctx.restore()
-      ctx.save()
-      ctx.translate(canvas.width/2, canvas.height/2)
-      ctx.rotate((90 + barTheta)*Math.PI/180)
-      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
-      ctx.restore()
-      ctx.save()
-      ctx.translate(canvas.width/2, canvas.height/2)
-      ctx.rotate((45 + barTheta)*Math.PI/180)
-      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
-      ctx.restore()
-      ctx.save()
-      ctx.translate(canvas.width/2, canvas.height/2)
-      ctx.rotate((135 + barTheta)*Math.PI/180)
-      ctx.fillRect(-barRadius/2, -1, barRadius, 2)
-      ctx.restore()
       /*
       function toRadians(angle) {
         return angle * (Math.PI/180)
