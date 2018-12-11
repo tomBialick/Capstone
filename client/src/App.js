@@ -126,14 +126,14 @@ class App extends Component {
           ctx.stroke()
           colorFill = (colorFill + 5) % 0xFFFFFF
       }*/
-      var paper = Raphael(0,0,300,300);
+      var paper = Raphael(0,0,canvas.width, canvas.height);
       var midx = canvas.width/2;
       var midy = canvas.height/2;
       var beg = midx/3;
       var end = beg - 10;
       //top half for-loop
       for (var i = 0; i < analyser.frequencyBinCount/2; i++){
-        var len = freqData[i] * 2;
+        var len = freqData[i];
         var secondlen = len + 10;
         var points = "M" + midx + "," + midy + "L" + beg + "," + len + "L" + secondlen + "," + end + "z";
         beg += 10;
