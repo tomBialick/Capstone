@@ -106,9 +106,10 @@ class App extends Component {
         ctx.fillRect(-amp/4, -.5, amp/2, .1)
         ctx.restore()
         if (barFill <= 0x000001) {
-          barFill = 0xFFFFFF
+          barFill = 0xF1F1F1
         }
-        ctx.fillStyle = '#' + (barFill - 0x000001)
+        barFill -= 0x000001
+        ctx.fillStyle = '#' + barFill
       }
       /*
       function toRadians(angle) {
