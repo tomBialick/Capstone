@@ -88,7 +88,7 @@ class App extends Component {
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }*/
-      highest = {index: 0,
+      var highest = {index: 0,
                  value: 0}
       for (var i = 0; i < 180; i++) {
         let amp = Math.abs(freqData[i])
