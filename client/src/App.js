@@ -88,14 +88,12 @@ class App extends Component {
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }*/
-      var highestIndex = 0
-      var highestValue = 0
       for (var i = 0; i < 180; i++) {
         let amp = Math.abs(freqData[i])
         ctx.save()
         ctx.translate(canvas.width/2, canvas.height/2)
         ctx.rotate(i*Math.PI/180)
-        ctx.fillRect(-amp/2, -1, amp, 2)
+        ctx.fillRect(-amp/2, -.5, amp, 1)
         ctx.restore()
       }
       /*
