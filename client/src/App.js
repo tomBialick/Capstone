@@ -95,14 +95,14 @@ class App extends Component {
         ctx.strokeStyle = '#'+ colorFill.toString(16)
         ctx.lineWidth = 1
         ctx.stroke()
-        colorFill = (colorFill + 5) % 0xFFFFFF
+        colorFill = (colorFill + 0x00001) % 0xFEFEFE
       }
       for (var i = 0; i < 180; i++) {
         let amp = Math.abs(freqData[i])
         ctx.save()
         ctx.translate(canvas.width/2, canvas.height/2)
         ctx.rotate(i*Math.PI/180)
-        ctx.fillRect(-amp/2, -.5, amp/2, 1)
+        ctx.fillRect(-amp/4, -.5, amp/2, 1)
         ctx.restore()
       }
       /*
