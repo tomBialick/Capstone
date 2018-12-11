@@ -132,7 +132,7 @@ class App extends Component {
       var beg = midx/3;
       var end = beg - 10;
       //top half for-loop
-      for (var i = 0; i < anaylser.frequencyBinCount/2; i++){
+      for (var i = 0; i < analyser.frequencyBinCount/2; i++){
         var len = freqData[i] * 2;
         var secondlen = len + 10;
         var points = "M" + midx + "," + midy + "L" + beg + "," + len + "L" + secondlen + "," + end + "z";
