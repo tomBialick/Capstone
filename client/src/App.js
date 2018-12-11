@@ -103,7 +103,7 @@ class App extends Component {
         ctx.save()
         ctx.translate(canvas.width/2, canvas.height/2)
         ctx.rotate(i*Math.PI/180)
-        ctx.fillRect(-amp/4, -.25, amp/2, .5)
+        ctx.fillRect(-amp/4, -.5, amp/2, .1)
         ctx.restore()
         if (barFill <= 0x000001) {
           barFill = 0xFFFFFF
