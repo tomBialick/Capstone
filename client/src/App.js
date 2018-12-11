@@ -102,7 +102,7 @@ class App extends Component {
         ctx.save()
         ctx.translate(canvas.width/2, canvas.height/2)
         ctx.rotate(i*Math.PI/180)
-        ctx.fillRect(-amp/4, -.5, amp/2, .1)
+        ctx.fillRect(-amp/4, -.125, amp/2, .25)
         ctx.restore()
       }
       /*
