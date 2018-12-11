@@ -80,6 +80,7 @@ class App extends Component {
       analyser.getByteFrequencyData(freqData)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = '#9933ff';
+      var barFill = 0x9933FF
       //analyser.getByteTimeDomainData(dataArray);
       /*let bars = 100;
       for (var i = 0; i < bars; i++) {
@@ -93,7 +94,7 @@ class App extends Component {
         var radius = freqData[i]/4
         ctx.arc(canvas.width/2, canvas.height/2, radius, 0, Math.PI * 2, true)
         ctx.strokeStyle = '#'+ colorFill.toString(16)
-        ctx.lineWidth = 1
+        ctx.lineWidth = .5
         ctx.stroke()
         colorFill = (colorFill + 0x00001) % 0xFEFEFE
       }
@@ -102,8 +103,12 @@ class App extends Component {
         ctx.save()
         ctx.translate(canvas.width/2, canvas.height/2)
         ctx.rotate(i*Math.PI/180)
-        ctx.fillRect(-amp/4, -.5, amp/2, 1)
+        ctx.fillRect(-amp/4, -.25, amp/2, .5)
         ctx.restore()
+        if (barFill <= 0x000001) {
+          barFill = 0xFFFFFF
+        }
+        ctx.fillStyle = '#' + (barFill - 0x000001)
       }
       /*
       function toRadians(angle) {
