@@ -88,20 +88,22 @@ class App extends Component {
         let bar_height = -(freqData[i] / 2);
         ctx.fillRect(bar_x, canvas.height, bar_width, bar_height)
       }*/
-      var highest = {index: 0,
-                 value: 0}
+      var highestIndex = 0
+      var highestValue = 0
       for (var i = 0; i < 180; i++) {
         let amp = Math.abs(freqData[i])
-        if (highest.value < amp) {
-          highest.index = i
-          highest.value = amp
+        if (highestValue < amp) {
+          highestIndex = i
+          highestValue = amp
         }
       }
-      let barTheta = highest.index
-      let barRadius = highest.value / 4
+      let barTheta = highestIndex
+      let barRadius = highestValue / 4
+      ctx.save()
       ctx.translate(canvas.width/2, canvas.height/2)
       ctx.rotate(barTheta*Math.PI/180)
       ctx.fillRect(-barRadius/2, -1, barRadius, 2)
+      ctx.restore()
       /*
       function toRadians(angle) {
         return angle * (Math.PI/180)
